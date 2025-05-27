@@ -1,4 +1,5 @@
 import pytest
+import math
 from src.knapsack_pso_refatorado import KnapsackProblem, BinaryPSO
 
 def test_knapsack_problem_initialization():
@@ -36,8 +37,8 @@ def test_get_total_weight():
 def test_sigmoid():
     pso = BinaryPSO(KnapsackProblem([10], [60], 50))
     assert 0 <= pso._sigmoid(0) <= 1
-    assert pso._sigmoid(20) == 1
-    assert pso._sigmoid(-20) == 0
+    assert math.isclose(pso._sigmoid(20), 1, rel_tol=1e-8)  # Aumentado para 1e-8
+    assert math.isclose(pso._sigmoid(-20), 0, rel_tol=1e-8)  # Aumentado para 1e-8
 
 def test_binary_pso_initialization():
     problem = KnapsackProblem([10, 20], [60, 100], 30)

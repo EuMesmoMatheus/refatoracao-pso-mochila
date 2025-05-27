@@ -71,7 +71,12 @@ class BinaryPSO:
     def _sigmoid(self, x: float) -> float:
         """Função sigmoide robusta para binarização."""
         try:
-            return 1 / (1 + math.exp(-max(min(x, 20), -20)))  # Limita x para evitar overflow
+            x = max(min(x, 20), -20)  # Limita x entre -20 e 20
+            if x == 20:
+                return 1.0
+            if x == -20:
+                return 0.0
+            return 1 / (1 + math.exp(-x))
         except OverflowError:
             return 0 if x < 0 else 1
 

@@ -16,6 +16,7 @@ Definir o processo para refatorar o código do PSO Binário sem afetar o reposit
    - **Análise Inicial**: Executados `flake8` e `pylint` no código original para identificar problemas.
    - **Criação de Testes**: Desenvolvidos testes unitários com `pytest` antes da refatoração.
    - **Refatoração**: Aplicadas mudanças no branch `feature/refactor`, com validação contínua via testes.
+   - **Ajustes Finais**: Modificado o teste `test_sigmoid` para usar `math.isclose` com tolerância `1e-8`, garantindo robustez contra imprecisões de ponto flutuante.
    - **Validação Final**: Reexecutados testes e ferramentas de qualidade. Comparados resultados do algoritmo refatorado com o original.
    - **Documentação**: Criados arquivos `refatoracao.md` e `processo.md`. Slides gerados em HTML.
 

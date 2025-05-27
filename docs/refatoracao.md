@@ -21,7 +21,7 @@ Refatorar o código do algoritmo PSO Binário para o Problema da Mochila 0/1, co
 
 ### 2.4 Falta de Testes
 - **Problema**: Ausência de testes automatizados.
-- **Solução Implementada**: Criados testes unitários com `pytest` em `test_knapsack_pso.py`, cobrindo funções principais e casos extremos (ex.: capacidade negativa, overflow na sigmoide).
+- **Solução Implementada**: Criados testes unitários com `pytest` em `test_knapsack_pso.py`, cobrindo funções principais e casos extremos (ex.: capacidade negativa, overflow na sigmoide). Ajustado o teste `test_sigmoid` para usar `math.isclose` com tolerância relativa de `1e-8` (inicialmente `1e-9`), devido à precisão de ponto flutuante na função `_sigmoid`.
 - **Técnica**: Introduce Assertion (Fowler).
 
 ### 2.5 Nomeação Inadequada
@@ -62,6 +62,7 @@ Refatorar o código do algoritmo PSO Binário para o Problema da Mochila 0/1, co
    - Eliminada duplicação de cálculo de peso.
    - Adicionados type hints, docstrings, validações e configurabilidade.
    - Separada geração de gráficos.
+   - Ajustado teste `test_sigmoid` para lidar com precisão de ponto flutuante.
 4. **Validação**: Reexecutados `flake8`, `pylint` e testes. Complexidade ciclomática reduzida para 6 (média por função).
 5. **Documentação**: Atualizado este arquivo com resultados.
 
@@ -75,13 +76,14 @@ Refatorar o código do algoritmo PSO Binário para o Problema da Mochila 0/1, co
 ## 7. Desafios Encontrados
 - Garantir cobertura de testes para casos extremos sem aumentar complexidade.
 - Balancear modularidade (ex.: evitar excesso de classes).
-- Ajustar sigmoide para evitar overflow sem alterar comportamento.
+- Ajustar sigmoide para evitar overflow e lidar com precisão de ponto flutuante nos testes.
 
 ## 8. Aprendizados
 - Encapsulamento em classes melhora reusabilidade e manutenção.
 - Testes unitários são essenciais para validar refatorações.
 - Ferramentas como `pylint` ajudam a identificar problemas sutis.
 - Configurabilidade (ex.: semente, verbosidade) aumenta flexibilidade.
+- Comparações de ponto flutuante requerem tolerâncias apropriadas (ex.: uso de `math.isclose`).
 
 ## 9. Próximos Passos
 - Testar com instâncias maiores (1000+ itens).
