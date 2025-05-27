@@ -380,7 +380,7 @@ Os testes em `tests/test_knapsack_pso.py` foram criados com `pytest` para garant
 - Explorar PSO multiobjetivo.
 - Automatizar relatórios com CI/CD.
 
-#Grupo váCavalo
+## Grupo váCavalo
 - Anna Beatriz Loz
 - Lucas Gadonski
 - Matheus Lofy
