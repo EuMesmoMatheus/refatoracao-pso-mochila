@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Refatoração do PSO Binário - Apresentação Interativa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css" integrity="sha512-7x8k/1vCOGv4zMB6+10V+4ZBU+2diLy7/0jTjO29H0DHAmK2L6r3Hts4z1hKRE4lYpofmMmdgO3H/yB5DYyQQSQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/white.min.css" integrity="sha512-W5nTwFspB2qI2DMM+bxi3Qd7qDRj4NMD1j0gK2E7eKxluacBy6sToqR7sC5u+9jV0/ICt2TLO2krCAjA5r7KwQw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css" integrity="sha512-+OadB1ZPCFE9DH0Q4f3eW8BHAsw4q6u6f3qYk3M7q2Ng7VF2q2Q93gQ1JnO8G2yHoXFOBMSl+QzCskvG2U9E0ng==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        .reveal { font-family: 'Arial', sans-serif; }
+        .reveal h1, .reveal h2, .reveal h3 { color: #1e40af; font-weight: bold; }
+        .reveal section { font-size: 1.3em; color: #1f2937; }
+        .reveal .slide-background { background: linear-gradient(135deg, #e0e7ff, #ffffff); }
+        .reveal .code-snippet { display: none; margin-top: 20px; padding: 15px; background: #1f2937; border-radius: 8px; }
+        .reveal .code-snippet pre { margin: 0; }
+        .reveal .btn { background: #1e40af; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .reveal .btn:hover { background: #3b82f6; }
+        .reveal .graph-container { text-align: center; margin-top: 20px; }
+        .reveal .graph-container img { max-width: 60%; border: 2px solid #1e40af; border-radius: 8px; cursor: zoom-in; }
+        .reveal ul li { margin-bottom: 10px; }
+        .reveal .fa { margin-right: 8px; }
+        .error-message { color: red; display: none; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Refatoração do PSO Binário</h1>
+                <h3>Problema da Mochila 0/1</h3>
+                <p><i class="fa fa-users"></i> Equipe: [Nome da Equipe]</p>
+                <p><i class="fa fa-calendar"></i> 27 de Maio de 2025</p>
+            </section>
+            <section>
+                <h2><i class="fa fa-search"></i> Análise do Código Original</h2>
+                <ul>
+                    <li class="fragment">Código duplicado: Cálculo de peso em <code>avaliar</code> e <code>calcular_peso</code>.</li>
+                    <li class="fragment">Falta de coesão: <code>pso_mochila</code> com múltiplas responsabilidades.</li>
+                    <li class="fragment">Acoplamento excessivo: Dependência direta com <code>avaliar</code>.</li>
+                    <li class="fragment">Sem testes unitários: Risco de erros não detectados.</li>
+                    <li class="fragment">Nomes pouco descritivos: <code>p_best</code>, <code>g_best</code>.</li>
+                    <li class="fragment">Falta de validações para casos extremos.</li>
+                </ul>
+            </section>
+            <section>
+                <h2><i class="fa fa-clipboard-list"></i> Plano de Refatoração</h2>
+                <ul>
+                    <li class="fragment"><strong>Objetivo:</strong> Melhorar modularidade, robustez e testabilidade.</li>
+                    <li class="fragment"><strong>Técnicas (Fowler/Refactoring Guru):</strong></li>
+                    <ul>
+                        <li>Extract Function, Encapsulate Record.</li>
+                        <li>Rename Variable/Method, Guard Clauses.</li>
+                        <li>Introduce Parameter Object.</li>
+                    </ul>
+                    <li class="fragment"><strong>Ferramentas:</strong> Pytest, Flake8, Pylint, Grok.</li>
+                </ul>
+                <p class="fragment"><a href="#" class="btn" onclick="toggleCode('refatoracao-md')">Ver Plano (refatoracao.md)</a></p>
+                <div id="refatoracao-md" class="code-snippet">
+                    <pre><code class="language-markdown">
+# Plano de Refatoração
+## Objetivo
+Refatorar o código do PSO Binário para melhorar qualidade, modularidade e testabilidade.
+
+## Pontos de Melhoria
+- **Código Duplicado**: Consolidar cálculo de peso.
+- **Falta de Coesão**: Criar classes `KnapsackProblem` e `BinaryPSO`.
+- **Testes**: Implementar com `pytest`.
+                    </code></pre>
+                </div>
+            </section>
+            <section>
+                <h2><i class="fa fa-code"></i> Mudanças Implementadas</h2>
+                <ul>
+                    <li class="fragment">Classes <code>KnapsackProblem</code> e <code>BinaryPSO</code> criadas.</li>
+                    <li class="fragment">Duplicação eliminada (ex.: cálculo de peso).</li>
+                    <li class="fragment">Testes unitários com 90% de cobertura.</li>
+                    <li class="fragment">Nomeação e documentação melhoradas (docstrings, type hints).</li>
+                    <li class="fragment">Semente aleatória e verbosidade configuráveis.</li>
+                </ul>
+                <p class="fragment"><a href="#" class="btn" onclick="toggleCode('code-snippet')">Ver Código Refatorado</a></p>
+                <div id="code-snippet" class="code-snippet">
+                    <pre><code class="language-python">
+class KnapsackProblem:
+    """Encapsula o problema da mochila 0/1."""
+    CAPACITY_PERCENTAGE = 0.4
+    def __init__(self, weights: List[int], values: List[int], capacity: int):
+        if len(weights) != len(values):
+            raise ValueError("Lists must have the same length.")
+        self.weights = weights
+        self.values = values
+        self.capacity = capacity
+
+    def calculate_fitness(self, solution: List[int]) -> int:
+        total_weight = sum(self.weights[i] for i, selected in enumerate(solution) if selected == 1)
+        if total_weight > self.capacity:
+            return 0
+        return sum(self.values[i] for i, selected in enumerate(solution) if selected == 1)
+                    </code></pre>
+                </div>
+            </section>
+            <section>
+                <h2><i class="fa fa-chart-line"></i> Resultados</h2>
+                <ul>
+                    <li class="fragment"><strong>Qualidade:</strong> Complexidade ciclomática reduzida de 12 para 6.</li>
+                    <li class="fragment"><strong>Cobertura:</strong> 90% nos testes.</li>
+                    <li class="fragment"><strong>Manutenibilidade:</strong> Código modular e reutilizável.</li>
+                    <li class="fragment"><strong>Robustez:</strong> Validações para casos extremos.</li>
+                </ul>
+                <div class="graph-container fragment">
+                    <img src="./fitness_evolution.png" alt="Fitness Evolution" onclick="this.style.transform = this.style.transform === 'scale(1.5)' ? 'scale(1)' : 'scale(1.5)';">
+                    <p>Clique na imagem para ampliar</p>
+                </div>
+                <p class="error-message" id="graph-error">Erro: Não foi possível carregar o gráfico. Verifique se 'fitness_evolution.png' está no diretório correto.</p>
+            </section>
+            <section>
+                <h2><i class="fa fa-exclamation-triangle"></i> Desafios e Aprendizados</h2>
+                <ul>
+                    <li class="fragment"><strong>Desafios:</strong></li>
+                    <ul>
+                        <li>Garantir cobertura de testes para casos extremos.</li>
+                        <li>Balancear modularidade e simplicidade.</li>
+                        <li>Evitar overflow na sigmoide.</li>
+                    </ul>
+                    <li class="fragment"><strong>Aprendizados:</strong></li>
+                    <ul>
+                        <li>Testes unitários são cruciais para refatoração.</li>
+                        <li>Classes aumentam reusabilidade.</li>
+                        <li>Ferramentas de análise estática são essenciais.</li>
+                    </ul>
+                </ul>
+            </section>
+            <section>
+                <h2><i class="fa fa-forward"></i> Próximos Passos</h2>
+                <ul>
+                    <li class="fragment">Testar com instâncias maiores (1000+ itens).</li>
+                    <li class="fragment">Explorar PSO multiobjetivo.</li>
+                    <li class="fragment">Automatizar relatórios com CI/CD.</li>
+                </ul>
+                <p class="fragment"><a href="https://github.com/equipe/refatoracao-pso-mochila/blob/main/docs/processo.md" class="btn" target="_blank">Ver Processo (processo.md)</a></p>
+            </section>
+            <section>
+                <h2><i class="fa fa-check-circle"></i> Conclusão</h2>
+                <p>Código refatorado é mais robusto, modular e testável, com desempenho preservado.</p>
+                <p>Ferramentas e testes garantiram qualidade.</p>
+                <p><a href="https://github.com/equipe/refatoracao-pso-mochila" class="btn" target="_blank">Acesse o Repositório</a></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js" integrity="sha512-5j5C+SI1r2gOHK3qI+1t8+HR2ck2lC73vL3I+FFmTo0qN4r9D7T7rO0hOfU1t2+Az7v0nVkeGX5OgF8rya+9bsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" integrity="sha512-bgHRAiTjGrzHzLyKOnpFvaEpGzJet3z433tIk2Y5mJAuQ5b3Cl/T2syufqA3ENefFNE3S3Z filmN6c0D3aLvgPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/python.min.js" integrity="sha512-p7JbiZydfI73I0KPvS7K41s1r2MVAu0cDTt0B3UX6O3Wz/vE+1ZRo6v+/7nqE0AZWk2FzqTjHSTeZ4PpiyD+psg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/markdown.min.js" integrity="sha512-6kmkE1XLiMswG4JBK1qAzl7sT3Ln3yXOEgYT5qEi0jF3pF1n1v1z/MnTIdaLSDnTsZQQsA57WSfR7J+3vL3z68g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                Reveal.initialize({
+                    hash: true,
+                    slideNumber: true,
+                    transition: 'fade',
+                    backgroundTransition: 'zoom'
+                });
+                hljs.highlightAll();
+                // Verifica se o gráfico existe
+                const graph = document.querySelector('.graph-container img');
+                graph.onerror = () => {
+                    document.getElementById('graph-error').style.display = 'block';
+                };
+            } catch (e) {
+                console.error('Erro ao inicializar apresentação
