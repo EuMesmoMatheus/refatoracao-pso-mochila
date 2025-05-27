@@ -1,8 +1,7 @@
 import pytest
-import math
 from src.knapsack_pso_refatorado import KnapsackProblem, BinaryPSO
 
-def test_knapsack_problem_initialization():
+def test_knapsack_initialization():
     weights = [10, 20, 30]
     values = [60, 100, 120]
     capacity = 50
@@ -11,7 +10,7 @@ def test_knapsack_problem_initialization():
     assert problem.values == values
     assert problem.capacity == capacity
 
-def test_knapsack_problem_invalid_input():
+def test_knapsack_invalid_input():
     with pytest.raises(ValueError, match="Lists of weights and values must have the same length."):
         KnapsackProblem([10, 20], [60], 50)
     with pytest.raises(ValueError, match="Capacity cannot be negative."):
@@ -37,11 +36,11 @@ def test_get_total_weight():
 def test_sigmoid():
     pso = BinaryPSO(KnapsackProblem([10], [60], 50))
     assert 0 <= pso._sigmoid(0) <= 1
-    assert math.isclose(pso._sigmoid(20), 1, rel_tol=1e-8)  # Aumentado para 1e-8
-    assert math.isclose(pso._sigmoid(-20), 0, rel_tol=1e-8)  # Aumentado para 1e-8
+    assert pso._sigmoid(20) == pytest.approx(1)
+    assert pso._sigmoid(-20) == pytest.approx(0, abs=1e-8)
 
 def test_binary_pso_initialization():
-    problem = KnapsackProblem([10, 20], [60, 100], 30)
+    problem = KnapsackProblem([10, 20], [60, 30], 10)
     pso = BinaryPSO(problem, n_particles=2, n_iterations=2, seed=42)
     pso._initialize()
     assert len(pso.particles) == 2
