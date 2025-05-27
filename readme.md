@@ -379,3 +379,10 @@ Os testes em `tests/test_knapsack_pso.py` foram criados com `pytest` para garant
 - Testar com instâncias maiores (1000+ itens).
 - Explorar PSO multiobjetivo.
 - Automatizar relatórios com CI/CD.
+
+#Grupo váCavalo
+- Anna Beatriz Loz
+- Lucas Gadonski
+- Matheus Lofy
+- Pablo Lopes Baguga Joinville
+- Sabine Freiman
