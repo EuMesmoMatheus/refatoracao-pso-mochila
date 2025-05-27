@@ -27,14 +27,9 @@ Definir o processo para refatorar o código do PSO Binário sem afetar o reposit
 - `tests/test_knapsack_pso.py`: Testes unitários.
 - `docs/refatoracao.md`: Documentação da refatoração.
 - `docs/processo.md`: Este arquivo.
-- `slides/slides_pso.py`: Script Python para apresentação interativa.
 - `fitness_evolution.png`: Gráfico gerado.
 
 ## 4. Cuidados para Preservar o Código Original
-- O código original foi mantido intacto no repositório forkado, em uma branch `original`.
-- Todas as alterações foram feitas na branch no novo repositório.
+- O código original foi mantido intacto no repositório
+- Todas as alterações foram feitas no novo repositório.
 - Testes garantem que o software funciona kkkk.
-
-## 5. Próximos Passos
-- Apresentar resultados à equipe usando `slides_pso.py`.
-- Incorporar feedback e realizar ajustes, se necessário.
